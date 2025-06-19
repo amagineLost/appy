@@ -1,4 +1,3 @@
-// Install: npm install express discord.js body-parser cors
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,8 +8,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const DISCORD_BOT_TOKEN = 'YOUR_BOT_TOKEN';
-const GUILD_ID = 'YOUR_SERVER_ID';
+const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
+const GUILD_ID = process.env.GUILD_ID;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -34,6 +33,7 @@ app.post('/create-channel', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Backend running on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
 });
